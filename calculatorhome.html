@@ -1,0 +1,244 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+ <link rel="stylesheet" href="animate.css" >   
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">    
+<link href="node_modules/angular-ripple-effect/style.css" rel="stylesheet">    
+<link href="node_modules/ng-ripple/dist/css/ng-ripple.min.css" rel="stylesheet">
+<style>
+#main{
+width:100%;
+height:700px;
+display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: dimgray;
+}
+#in{
+    margin-top:50px;
+    width: 40%;
+    height: 65%;
+    background-color: whitesmoke;
+    border-radius: 1%;
+    border:1px solid lightblue;
+    
+}
+
+.gi{
+    color:black;
+    font-size: 26px;
+    cursor: pointer;
+    text-align: center;
+    border-radius:5%;
+    border:1px solid lightgrey;
+    background-color: whitesmoke;
+     margin: auto;
+    width: 80%;
+    height: 60%;
+    }  
+   .last1{
+        grid-column-start:1;
+        grid-column-end:3;
+    } 
+  
+    .mainstl{
+        word-wrap: break-word; float:right;height: 100%; font-size: 44px;margin:7px 10px 0px 0px;color:whitesmoke;
+    }
+</style>
+</head>
+<body>
+<div ng-app="myApp" id="main">
+    
+    
+<div ng-controller="myCtrl" class="bounceIn" id="in"> 
+    
+    
+    
+<div  class="hell" style="height: 15%;width: 93%;margin: 20px 20px 0px 20px; background-color: darkseagreen;  position: relative;">
+     <label  class="mainstl">{{temp}}</label>
+</div>    
+<div class="hell" style="display: inline-grid;grid-template-columns: auto auto auto auto; height: 72%;width:93%;margin:5px 20px 20px 20px;background-color: darkseagreen;">
+<div ng-click="proc('7')" class="gi">    
+    7
+</div>
+    
+<div ng-click="proc('8')" class="gi" >  
+        8   
+</div>
+    <div ng-click="proc('9')" class="gi">    
+    9
+</div>
+    <div ng-click="proc('+')" class="gi">    
+    +
+</div>
+    <div ng-click="proc('4')" class="gi">    
+    4
+</div>
+    <div ng-click="proc('5')" class="gi">    
+    5
+</div>
+    <div ng-click="proc('6')" class="gi">    
+    6
+</div>
+    <div ng-click="proc('-')" class="gi">    
+    
+    -
+</div>
+    <div ng-click="proc('1')" class="gi">    
+    1
+</div>
+    <div ng-click="proc('2')" class="gi">    
+    2
+</div>
+    <div ng-click="proc('3')" class="gi">    
+    3
+</div>
+    <div ng-click="proc('*')" class="gi">    
+    x
+</div>
+     <div ng-click="proc('0')" class="gi">    
+    0
+</div>
+    <div ng-click="proc('.')" class="gi">    
+    .
+</div>
+    <div ng-click="proc('%')" class="gi">    
+    %
+</div>
+    <div ng-click="proc('/')" class="gi">    
+    ÷
+</div>
+    <div ng-click="proc('ac')" class="gi last1">    
+    AC
+</div>
+    <div ng-click="proc('=')" class="gi">    
+    =
+</div>
+    <div ng-click="proc('del')" class="gi">    
+    Del
+</div>
+      
+    
+    </div><!--grid-->    
+</div>
+    <!--in-->    
+</div>
+    <!--main-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>    
+<script>
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+function setRandomColor() {
+  $(".hell").css("background-color", getRandomColor());
+}    
+angular.module('myApp', [])
+.controller('myCtrl', ['$scope', function($scope) {
+    $scope.temp=0;
+    $scope.count=0;
+    $scope.samea=0;
+    $scope.proc = function(a) {
+        setRandomColor();
+        if($scope.temp.length<=18)
+            {
+               
+                $(".mainstl").css("font-size",44);
+            }
+        if($scope.count>=18)
+            {
+               
+                $(".mainstl").css("font-size",24);
+            }
+        if($scope.count>=30)
+            {
+                
+                $(".mainstl").css("font-size",14);
+            }
+        if(a=="ac")
+        {
+            $scope.temp=0;
+            $scope.count=0;
+             console.log(" Scope count value is "+$scope.count);    
+            return;
+        }
+        if($scope.samea==1)
+        {    
+        if(a=='+' || a=='-' || a=='*' || a=='/' || a=='%')
+        {
+            $scope.temp=$scope.temp+a;
+            $scope.samea=0;
+            return;
+        }
+        else if(a=="del")
+            {    
+                                $scope.temp=0;
+                                 return;
+            }
+        else if(a== '=')
+            {
+                return;
+            }
+        else{
+            $scope.temp=a;
+            $scope.samea=0;
+            return;
+        }
+        }
+        if(a =='=')
+        {   try{
+            $scope.temp=eval($scope.temp);
+                $scope.samea=1;
+            }
+            
+            catch(err)
+            {
+                 $scope.temp="Error";
+                setTimeout(function(){
+               $scope.temp=0;
+               }, 200)
+            }
+            if($scope.temp.length >=18)
+                {
+                    $scope.wrap=true;
+                }
+             console.log(" Scope count value is "+$scope.count);    
+            return;
+        }
+        if(a=="del")
+        {       if(! ($scope.temp.length ==0))
+            {
+                $scope.temp=$scope.temp.substr(0,$scope.temp.length -1);
+                $scope.count-=1;
+                if($scope.temp.length==0)
+                    $scope.temp=0;
+                 console.log(" Scope count value is "+$scope.count);
+            }
+                return;
+        }
+        if($scope.temp==0)
+        {
+          $scope.temp=a;   
+           $scope.count++;    
+        }
+        else
+            {
+            $scope.temp=$scope.temp+a;
+             $scope.count++;
+            }
+     console.log(" Scope count value is "+$scope.count);    
+    };
+
+}]);    
+</script>
+ 
+</body>
+</html>
+
